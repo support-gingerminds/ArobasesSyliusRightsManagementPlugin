@@ -63,7 +63,7 @@ services:
       - '@arobases_sylius_rights_management_plugin.provider.current_admin_user_provider'
       - '@arobases_sylius_rights_management_plugin.checker.admin_user_access_checker'
       - '@arobases_sylius_rights_management_plugin.checker.admin_route_checker'
-      - '@session'
+      - '@request_stack'
       - '@Symfony\Component\Routing\RouterInterface'
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
