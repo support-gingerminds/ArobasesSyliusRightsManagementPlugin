@@ -1,4 +1,19 @@
 services:
+  arobases_sylius_rights_management_plugin.class_metadata.role:
+    class: Doctrine\ORM\Mapping\ClassMetadata
+    factory: [ '@doctrine.orm.default_entity_manager' , 'getClassMetadata' ]
+    arguments: [ '%arobases_sylius_rights_management_plugin.model.role.class%' ]
+
+  arobases_sylius_rights_management_plugin.class_metadata.right:
+    class: Doctrine\ORM\Mapping\ClassMetadata
+    factory: [ '@doctrine.orm.default_entity_manager' , 'getClassMetadata' ]
+    arguments: [ '%arobases_sylius_rights_management_plugin.model.right.class%' ]
+
+  arobases_sylius_rights_management_plugin.class_metadata.right_group:
+    class: Doctrine\ORM\Mapping\ClassMetadata
+    factory: [ '@doctrine.orm.default_entity_manager' , 'getClassMetadata' ]
+    arguments: [ '%arobases_sylius_rights_management_plugin.model.right_group.class%' ]
+
   arobases_sylius_rights_management_plugin.form.type.admin.role:
     class: Arobases\SyliusRightsManagementPlugin\Form\Type\Admin\RoleType
     tags:
@@ -9,14 +24,14 @@ services:
     arguments:
       - '@arobases_sylius_rights_management_plugin.repository.right'
     tags:
-      - { name: form.type}
+      - { name: form.type }
 
   arobases_sylius_rights_management_plugin.form.type.admin.role_choice:
     class: Arobases\SyliusRightsManagementPlugin\Form\Type\Admin\RoleChoiceType
     arguments:
       - '@arobases_sylius_rights_management_plugin.repository.role'
     tags:
-      - { name: form.type}
+      - { name: form.type }
 
   arobases_sylius_rights_management_plugin.form.admin_user:
     class: Arobases\SyliusRightsManagementPlugin\Form\Extension\AdminUserTypeExtension
@@ -27,7 +42,7 @@ services:
     class: Arobases\SyliusRightsManagementPlugin\Twig\Extensions\FormatRightArrayExtension
     public: false
     tags:
-        - { name: twig.extension }
+      - { name: twig.extension }
 
   arobases_sylius_rights_management_plugin.checker.admin_route_checker:
     class: Arobases\SyliusRightsManagementPlugin\Access\Checker\AdminRouteChecker
@@ -70,7 +85,7 @@ services:
       - '@Symfony\Component\Routing\RouterInterface'
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-      
+
   arobases_sylius_rights_management_plugin.listener.admin_menu:
     class: Arobases\SyliusRightsManagementPlugin\Menu\AdminMenuListener
     arguments:
@@ -83,16 +98,16 @@ services:
     class: Arobases\SyliusRightsManagementPlugin\Repository\Role\RoleRepository
     arguments:
       - '@arobases_sylius_rights_management_plugin.manager.role'
-      - '%arobases_sylius_rights_management_plugin.model.role.class%'
+      - '@arobases_sylius_rights_management_plugin.class_metadata.role'
 
   arobases_sylius_rights_management_plugin.repository.right:
     class: Arobases\SyliusRightsManagementPlugin\Repository\Right\RightRepository
     arguments:
       - '@arobases_sylius_rights_management_plugin.manager.right'
-      - '%arobases_sylius_rights_management_plugin.model.right.class%'
+      - '@arobases_sylius_rights_management_plugin.class_metadata.right'
 
   arobases_sylius_rights_management_plugin.repository.right_group:
     class: Arobases\SyliusRightsManagementPlugin\Repository\Group\RightGroupRepository
     arguments:
       - '@arobases_sylius_rights_management_plugin.manager.right_group'
-      - '%arobases_sylius_rights_management_plugin.model.right_group.class%'
+      - '@arobases_sylius_rights_management_plugin.class_metadata.right_group'
