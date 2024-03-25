@@ -49,6 +49,9 @@ services:
       - '@arobases_sylius_rights_management_plugin.adapter.right_adapter'
       - '@arobases_sylius_rights_management_plugin.repository.right_group'
       - '@arobases_sylius_rights_management_plugin.repository.right'
+      - '%default_admin_user%'
+      - '%default_admin_role_code%'
+      - '%default_admin_role_name%'
     tags:
       - { name: console.command }
 
