@@ -82,17 +82,17 @@ services:
   arobases_sylius_rights_management_plugin.repository.role:
     class: Arobases\SyliusRightsManagementPlugin\Repository\Role\RoleRepository
     arguments:
-      - "@doctrine.orm.entity_manager"
-      - "@Arobases\SyliusRightsManagementPlugin\Entity\Role"
+      - '@arobases_sylius_rights_management_plugin.manager.role'
+      - '@Arobases\SyliusRightsManagementPlugin\Entity\Role'
 
   arobases_sylius_rights_management_plugin.repository.right:
     class: Arobases\SyliusRightsManagementPlugin\Repository\Right\RightRepository
     arguments:
-      - "@doctrine.orm.entity_manager"
-      - "@Arobases\SyliusRightsManagementPlugin\Entity\Right"
+      - '@arobases_sylius_rights_management_plugin.manager.right'
+      - '@Arobases\SyliusRightsManagementPlugin\Entity\Right'
 
   arobases_sylius_rights_management_plugin.repository.right_group:
     class: Arobases\SyliusRightsManagementPlugin\Repository\Group\RightGroupRepository
     arguments:
-      - "@doctrine.orm.entity_manager"
-      - "@Arobases\SyliusRightsManagementPlugin\Entity\RightGroup"
+      - '@arobases_sylius_rights_management_plugin.manager.right_group'
+      - '@Arobases\SyliusRightsManagementPlugin\Entity\RightGroup'
