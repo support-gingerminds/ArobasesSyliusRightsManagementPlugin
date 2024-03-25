@@ -78,3 +78,12 @@ services:
       - '@arobases_sylius_rights_management_plugin.provider.current_admin_user_provider'
     tags:
       - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
+
+  arobases_sylius_rights_management_plugin.repository.role:
+    class: Arobases\SyliusRightsManagementPlugin\Repository\Role\RoleRepository
+
+  arobases_sylius_rights_management_plugin.repository.right:
+    class: Arobases\SyliusRightsManagementPlugin\Repository\Right\RightRepository
+
+  arobases_sylius_rights_management_plugin.repository.right_group:
+    class: Arobases\SyliusRightsManagementPlugin\Repository\Group\RightGroupRepository
