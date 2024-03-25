@@ -29,6 +29,7 @@ final class AdminMenuListener
 
         foreach ($menu->getChildren() as $rootChildren) {
             foreach ($rootChildren->getChildren() as $children) {
+                dump($this->currentAdminUserProvider->getCurrentAdminUser(), $children->getExtra('routes')[0]['route'],$this->currentAdminUserProvider->getCurrentAdminUser()->getRights());
                 if (!$this->adminUserAccessChecker->isUserGranted($this->currentAdminUserProvider->getCurrentAdminUser(), $children->getExtra('routes')[0]['route'])) {
                     $rootChildren->removeChild($children);
                 }
