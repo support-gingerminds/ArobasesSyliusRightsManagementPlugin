@@ -10,7 +10,6 @@ use Arobases\SyliusRightsManagementPlugin\Entity\RightGroup;
 use Arobases\SyliusRightsManagementPlugin\Entity\Role;
 use Arobases\SyliusRightsManagementPlugin\Repository\Group\RightGroupRepository;
 use Arobases\SyliusRightsManagementPlugin\Repository\Right\RightRepository;
-use Arobases\SyliusRightsManagementPlugin\Repository\Role\RoleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Core\Model\AdminUserInterface;
 use Symfony\Component\Console\Command\Command;
@@ -29,8 +28,6 @@ class CreateAdminRightCommand extends Command
 
     protected RightRepository $rightRepository;
 
-    protected RoleRepository $roleRepository;
-
     protected string $defaultAdminUser;
     protected string $defaultAdminRoleCode;
     protected string $defaultAdminRoleName;
@@ -40,7 +37,6 @@ class CreateAdminRightCommand extends Command
         RightAdapter $rightAdapter,
         RightGroupRepository $groupRightRepository,
         RightRepository $rightRepository,
-        RoleRepository $roleRepository,
         string $defaultAdminUser,
         string $defaultAdminRoleCode,
         string $defaultAdminRoleName
@@ -49,7 +45,6 @@ class CreateAdminRightCommand extends Command
         $this->rightAdapter = $rightAdapter;
         $this->groupRightRepository = $groupRightRepository;
         $this->rightRepository = $rightRepository;
-        $this->roleRepository = $roleRepository;
         $this->defaultAdminUser = $defaultAdminUser;
         $this->defaultAdminRoleCode = $defaultAdminRoleCode;
         $this->defaultAdminRoleName = $defaultAdminRoleName;
@@ -70,7 +65,7 @@ class CreateAdminRightCommand extends Command
         if ($defaultAdminUser && $defaultAdminRoleCode && $defaultAdminRoleName) {
             $adminUser = $this->manager->getRepository(AdminUserInterface::class)->findOneBy(['username' => $defaultAdminUser]);
             if ($adminUser) {
-                $administratorRole = $this->roleRepository->findOneBy(['code' => $defaultAdminRoleCode]);
+                $administratorRole = $this->manager->getRepository(Role::class)->findOneBy(['code' => $defaultAdminRoleCode]);
                 if (!$administratorRole) {
                     $administratorRole = new Role();
                     $administratorRole->setCode($defaultAdminRoleCode);
