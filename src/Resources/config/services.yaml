@@ -1,4 +1,8 @@
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
   arobases_sylius_rights_management_plugin.class_metadata.role:
     class: Doctrine\ORM\Mapping\ClassMetadata
     factory: [ '@doctrine.orm.default_entity_manager' , 'getClassMetadata' ]
