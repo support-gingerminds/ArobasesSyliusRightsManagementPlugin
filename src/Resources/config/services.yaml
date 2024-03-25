@@ -101,18 +101,21 @@ services:
 
   arobases_sylius_rights_management_plugin.repository.role:
     class: Arobases\SyliusRightsManagementPlugin\Repository\Role\RoleRepository
+    public: true
     arguments:
       - '@arobases_sylius_rights_management_plugin.manager.role'
       - '@arobases_sylius_rights_management_plugin.class_metadata.role'
 
   arobases_sylius_rights_management_plugin.repository.right:
     class: Arobases\SyliusRightsManagementPlugin\Repository\Right\RightRepository
+    public: true
     arguments:
       - '@arobases_sylius_rights_management_plugin.manager.right'
       - '@arobases_sylius_rights_management_plugin.class_metadata.right'
 
   arobases_sylius_rights_management_plugin.repository.right_group:
     class: Arobases\SyliusRightsManagementPlugin\Repository\Group\RightGroupRepository
+    public: true
     arguments:
       - '@arobases_sylius_rights_management_plugin.manager.right_group'
       - '@arobases_sylius_rights_management_plugin.class_metadata.right_group'
