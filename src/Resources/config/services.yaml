@@ -83,16 +83,16 @@ services:
     class: Arobases\SyliusRightsManagementPlugin\Repository\Role\RoleRepository
     arguments:
       - '@arobases_sylius_rights_management_plugin.manager.role'
-      - '@Arobases\SyliusRightsManagementPlugin\Entity\Role'
+      - '@arobases_sylius_rights_management_plugin.factory.role'
 
   arobases_sylius_rights_management_plugin.repository.right:
     class: Arobases\SyliusRightsManagementPlugin\Repository\Right\RightRepository
     arguments:
       - '@arobases_sylius_rights_management_plugin.manager.right'
-      - '@Arobases\SyliusRightsManagementPlugin\Entity\Right'
+      - '@arobases_sylius_rights_management_plugin.factory.right'
 
   arobases_sylius_rights_management_plugin.repository.right_group:
     class: Arobases\SyliusRightsManagementPlugin\Repository\Group\RightGroupRepository
     arguments:
       - '@arobases_sylius_rights_management_plugin.manager.right_group'
-      - '@Arobases\SyliusRightsManagementPlugin\Entity\RightGroup'
+      - '@arobases_sylius_rights_management_plugin.factory.right_group'
