@@ -91,14 +91,6 @@ services:
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
-  arobases_sylius_rights_management_plugin.listener.admin_menu:
-    class: Arobases\SyliusRightsManagementPlugin\Menu\AdminMenuListener
-    arguments:
-      - '@arobases_sylius_rights_management_plugin.checker.admin_user_access_checker'
-      - '@arobases_sylius_rights_management_plugin.provider.current_admin_user_provider'
-    tags:
-      - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
-
   arobases_sylius_rights_management_plugin.repository.role:
     class: Arobases\SyliusRightsManagementPlugin\Repository\Role\RoleRepository
     public: true
