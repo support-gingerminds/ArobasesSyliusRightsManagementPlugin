@@ -42,7 +42,7 @@ class AdminUserAccessChecker
         return false;
     }
 
-    public function isUserMenuGranted(UserInterface $adminUser, array $routes): bool
+    public function isUserMenuGranted(UserInterface $adminUser, array|null $routes): bool
     {
         $authorizedRoutes = [];
         if (null === $adminUser->getRole()) {
@@ -55,7 +55,7 @@ class AdminUserAccessChecker
             $authorizedRoutes = array_merge($this->getRightAuthorizedRoutes($right), $authorizedRoutes);
         }
 
-        if (!empty($authorizedRoutes)) {
+        if (!empty($authorizedRoutes) && !empty($routes)) {
             foreach ($routes as $route) {
                 if (in_array($route['route'], $authorizedRoutes)) {
                     return true;
