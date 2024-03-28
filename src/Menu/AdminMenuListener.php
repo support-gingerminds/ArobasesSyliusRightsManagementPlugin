@@ -33,6 +33,10 @@ final class AdminMenuListener
                     $rootChildren->removeChild($children);
                 }
             }
+
+            if (0 === count($rootChildren->getChildren())) {
+                $menu->removeChild($rootChildren);
+            }
         }
     }
 }
