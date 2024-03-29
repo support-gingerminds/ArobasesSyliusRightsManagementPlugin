@@ -46,6 +46,7 @@ class Right implements ResourceInterface
      *      )
      */
     #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'rights', fetch: 'EXTRA_LAZY', cascade: ['persist'])]
+    #[ORM\JoinTable(name:'arobases_sylius_rights_management_right_role')]
     protected Collection $roles;
 
     /**
