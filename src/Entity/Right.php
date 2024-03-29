@@ -14,6 +14,8 @@ use Sylius\Component\Resource\Model\ResourceInterface;
  * @ORM\Entity
  * @ORM\Table(name="arobases_sylius_rights_management_right")
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'arobases_sylius_rights_management_right')]
 class Right implements ResourceInterface
 {
     use TimestampableEntity;
@@ -23,9 +25,13 @@ class Right implements ResourceInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     protected ?int $id = null;
 
     /** @ORM\Column(type="string", length=100) */
+    #[ORM\Column(length: 100)]
     protected string $name;
 
     /**
@@ -39,6 +45,10 @@ class Right implements ResourceInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
      *      )
      */
+    #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'rights', fetch: 'EXTRA_LAZY', cascade: ['persist'])]
+    #[ORM\JoinTable(name:'arobases_sylius_rights_management_right_role')]
+    #[JoinColumn(name: 'right_id', referencedColumnName: 'id')]
+    #[InverseJoinColumn(name: 'role_id', referencedColumnName: 'id')]
     protected Collection $roles;
 
     /**
@@ -48,12 +58,15 @@ class Right implements ResourceInterface
      *      cascade={"persist", "remove"}
      * )
      */
+    #[ORM\ManyToOne(targetEntity: RightGroup::class, inversedBy: 'rights', fetch: 'EXTRA_LAZY', cascade: ['persist', 'remove'])]
     protected ?RightGroup $rightGroup = null;
 
     /** @ORM\Column(type="array", length=511, nullable=true) */
+    #[ORM\Column(type: 'array', length: 511, nullable: true)]
     protected ?array $routes = null;
 
     /** @ORM\Column(type="array", length=511, nullable=true) */
+    #[ORM\Column(type: 'array', length: 511, nullable: true)]
     protected ?array $excludedRoutes = null;
 
     public function __construct()

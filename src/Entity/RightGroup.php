@@ -12,6 +12,8 @@ use Sylius\Component\Resource\Model\ResourceInterface;
  * @ORM\Entity
  * @ORM\Table(name="arobases_sylius_rights_management_right_group")
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'arobases_sylius_rights_management_right_group')]
 class RightGroup implements ResourceInterface
 {
     /**
@@ -19,9 +21,13 @@ class RightGroup implements ResourceInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     protected ?int $id = null;
 
     /** @ORM\Column(type="string", length=100) */
+    #[ORM\Column(length: 100)]
     protected string $name;
 
     /**
@@ -30,6 +36,7 @@ class RightGroup implements ResourceInterface
      *     cascade={"persist", "remove"}
      *      )
      */
+    #[ORM\OneToMany(targetEntity: Right::class, mappedBy: 'rightGroup', fetch: 'EXTRA_LAZY', cascade: ['persist', 'remove'])]
     protected Collection $rights;
 
     public function getId(): ?int

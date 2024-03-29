@@ -15,6 +15,7 @@ trait AdminUserTrait
      *      cascade={"persist"}
      * )
      */
+    #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'adminUsers', fetch: 'EXTRA_LAZY', cascade: ['persist'])]
     protected ?Role $role = null;
 
     public function getRole(): ?Role

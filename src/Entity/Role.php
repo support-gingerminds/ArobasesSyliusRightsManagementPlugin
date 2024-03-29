@@ -15,11 +15,14 @@ use Sylius\Component\Resource\Model\ResourceInterface;
  * @ORM\Entity
  * @ORM\Table(name="arobases_sylius_right_management_role")
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'arobases_sylius_right_management_role')]
 class Role implements ResourceInterface, CodeAwareInterface
 {
     use TimestampableEntity;
 
     /** @ORM\Column(type="string", length=70) */
+    #[ORM\Column(length: 70)]
     protected ?string $code = null;
 
     /**
@@ -27,9 +30,13 @@ class Role implements ResourceInterface, CodeAwareInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     protected ?int $id = null;
 
     /** @ORM\Column(type="string", length=100) */
+    #[ORM\Column(length: 100)]
     protected string $name;
 
     /**
@@ -40,6 +47,10 @@ class Role implements ResourceInterface, CodeAwareInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="right_id", referencedColumnName="id")}
      *      )
      */
+    #[ORM\ManyToMany(targetEntity: Right::class, inversedBy: 'roles', fetch: 'EXTRA_LAZY')]
+    #[ORM\JoinTable(name:'arobases_sylius_rights_management_right_role')]
+    #[JoinColumn(name: 'role_id', referencedColumnName: 'id')]
+    #[InverseJoinColumn(name: 'right_id', referencedColumnName: 'id')]
     protected Collection $rights;
 
     /**
@@ -48,6 +59,7 @@ class Role implements ResourceInterface, CodeAwareInterface
      *     cascade={"persist"}
      *      )
      */
+    #[ORM\OneToMany(targetEntity: AdminUserInterface::class, mappedBy: 'role', fetch: 'EXTRA_LAZY', cascade: ['persist'])]
     protected Collection $adminUsers;
 
     public function __construct()
