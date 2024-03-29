@@ -47,7 +47,7 @@ class Role implements ResourceInterface, CodeAwareInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="right_id", referencedColumnName="id")}
      *      )
      */
-    #[ORM\ManyToMany(targetEntity: Right::class, inversedBy: 'roles', fetch: 'EXTRA_LAZY')]
+    #[ORM\ManyToMany(targetEntity: Right::class, mappedBy: 'roles', fetch: 'EXTRA_LAZY')]
     protected Collection $rights;
 
     /**
