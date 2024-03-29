@@ -59,7 +59,7 @@ class Role implements ResourceInterface, CodeAwareInterface
      *     cascade={"persist"}
      *      )
      */
-    #[ORM\OneToMany(targetEntity: AdminUserInterface::class, mappedBy: 'role', fetch: 'EXTRA_LAZY', cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: Sylius\Component\Core\Model\AdminUserInterface::class, mappedBy: 'role', fetch: 'EXTRA_LAZY', cascade: ['persist'])]
     protected Collection $adminUsers;
 
     public function __construct()
