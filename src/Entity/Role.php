@@ -49,8 +49,6 @@ class Role implements ResourceInterface, CodeAwareInterface
      */
     #[ORM\ManyToMany(targetEntity: Right::class, inversedBy: 'roles', fetch: 'EXTRA_LAZY')]
     #[ORM\JoinTable(name:'arobases_sylius_rights_management_right_role')]
-    #[JoinColumn(name: 'role_id', referencedColumnName: 'id')]
-    #[InverseJoinColumn(name: 'right_id', referencedColumnName: 'id')]
     protected Collection $rights;
 
     /**
