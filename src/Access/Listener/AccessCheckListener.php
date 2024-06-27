@@ -72,6 +72,10 @@ class AccessCheckListener
             if (!$isUserGranted) {
                 $event->setResponse($this->redirectUser($this->getRedirectRoute(), $this->getRedirectMessage()));
             }
+
+            if ('sylius_admin_admin_user_update' === $routeName) {
+                dd($event->getRequest());
+            }
         }
     }
 
