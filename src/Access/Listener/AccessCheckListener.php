@@ -74,7 +74,9 @@ class AccessCheckListener
             }
 
             if ('sylius_admin_admin_user_update' === $routeName) {
-                dd($event->getRequest());
+                if ($event->getRequest()->attributes->get('id') != $adminUser->getId()) {
+                    $event->setResponse($this->redirectUser($this->getRedirectRoute(), $this->getRedirectMessage()));
+                }
             }
         }
     }
