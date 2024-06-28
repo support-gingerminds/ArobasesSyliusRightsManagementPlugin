@@ -73,11 +73,15 @@ class AccessCheckListener
                 $event->setResponse($this->redirectUser($this->getRedirectRoute(), $this->getRedirectMessage()));
             }
 
-            dd($adminUser->getRole()->getCode(), !in_array($adminUser->getRole()->getCode(), ['SUPER_ADMIN', 'ADMIN']));
-
-            if ('sylius_admin_admin_user_update' === $routeName && !in_array($adminUser->getRole()->getCode(), ['SUPER_ADMIN', 'ADMIN'])) {
-                if ($event->getRequest()->attributes->get('id') != $adminUser->getId()) {
-                    $event->setResponse($this->redirectUser($this->getRedirectRoute(), $this->getRedirectMessage()));
+            if ('sylius_admin_admin_user_update' === $routeName) {
+                if (!in_array($adminUser->getRole()->getCode(), ['SUPER_ADMIN', 'ADMIN'])) {
+                    if ($event->getRequest()->attributes->get('id') != $adminUser->getId()) {
+                        $event->setResponse($this->redirectUser($this->getRedirectRoute(), $this->getRedirectMessage()));
+                    }
+                } else {
+                    if ('ADMIN' === $adminUser->getRole()->getCode()) {
+                        dd($event);
+                    }
                 }
             }
         }
