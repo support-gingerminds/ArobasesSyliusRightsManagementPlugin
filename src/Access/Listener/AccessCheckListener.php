@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 class AccessCheckListener
 {
@@ -27,6 +28,7 @@ class AccessCheckListener
     private RouterInterface $router;
 
     public function __construct(
+        private RepositoryInterface $adminUserRepository,
         CurrentAdminUserProvider $currentAdminUserProvider,
         AdminUserAccessChecker $adminUserAccessChecker,
         AdminRouteChecker $adminRouteAccessChecker,
@@ -80,7 +82,13 @@ class AccessCheckListener
                     }
                 } else {
                     if ('ADMIN' === $adminUser->getRole()->getCode()) {
-                        dd($event);
+                        $userToModify = $this->adminUserRepository->find($event->getRequest()->attributes->get('id'));
+
+                        if ('SUPER_ADMIN' === $userToModify->getRole()->getCode()) {
+                            if ($event->getRequest()->attributes->get('id') != $adminUser->getId()) {
+                                $event->setResponse($this->redirectUser($this->getRedirectRoute(), $this->getRedirectMessage()));
+                            }
+                        }
                     }
                 }
             }

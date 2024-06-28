@@ -84,6 +84,7 @@ services:
   arobases_sylius_rights_management_plugin.listener.access_check_listener:
     class: Arobases\SyliusRightsManagementPlugin\Access\Listener\AccessCheckListener
     arguments:
+      - '@sylius.repository.admin_user'
       - '@arobases_sylius_rights_management_plugin.provider.current_admin_user_provider'
       - '@arobases_sylius_rights_management_plugin.checker.admin_user_access_checker'
       - '@arobases_sylius_rights_management_plugin.checker.admin_route_checker'
