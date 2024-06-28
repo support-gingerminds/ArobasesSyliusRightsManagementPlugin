@@ -22,7 +22,6 @@ final class RoleChoiceType extends AbstractType
      */
     public function __construct(
         RoleRepository $roleRepository,
-        private Security $security
     )
     {
         $this->roleRepository = $roleRepository;
@@ -37,15 +36,7 @@ final class RoleChoiceType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $user = $this->security->getUser();
-
-        if ('SUPER_ADMIN' !== $user->getRole()) {
-            $roles = array_filter($this->roleRepository->findAll(), function ($role) use ($user) {
-                return 'SUPER_ADMIN' !== $role->getCode();
-            });
-        } else {
-            $roles = $this->roleRepository->findAll();
-        }
+        $roles = $this->roleRepository->findAll();
 
         $resolver->setDefaults([
             'choices' => $roles,

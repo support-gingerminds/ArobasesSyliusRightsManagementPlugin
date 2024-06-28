@@ -34,7 +34,6 @@ services:
     class: Arobases\SyliusRightsManagementPlugin\Form\Type\Admin\RoleChoiceType
     arguments:
       - '@arobases_sylius_rights_management_plugin.repository.role'
-      - '@security'
     tags:
       - { name: form.type }
 
