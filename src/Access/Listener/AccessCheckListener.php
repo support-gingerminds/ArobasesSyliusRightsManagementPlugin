@@ -84,9 +84,11 @@ class AccessCheckListener
                     if ('ADMIN' === $adminUser->getRole()->getCode()) {
                         $userToModify = $this->adminUserRepository->find($event->getRequest()->attributes->get('id'));
 
-                        if ('SUPER_ADMIN' === $userToModify->getRole()->getCode()) {
-                            if ($event->getRequest()->attributes->get('id') != $adminUser->getId()) {
-                                $event->setResponse($this->redirectUser($this->getRedirectRoute(), $this->getRedirectMessage()));
+                        if ($userToModify->getRole()) {
+                            if ('SUPER_ADMIN' === $userToModify->getRole()->getCode()) {
+                                if ($event->getRequest()->attributes->get('id') != $adminUser->getId()) {
+                                    $event->setResponse($this->redirectUser($this->getRedirectRoute(), $this->getRedirectMessage()));
+                                }
                             }
                         }
                     }
