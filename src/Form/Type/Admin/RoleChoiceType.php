@@ -40,6 +40,7 @@ final class RoleChoiceType extends AbstractType
         $user = $this->security->getUser();
 
         if ('SUPER_ADMIN' !== $user->getRole()) {
+            dd($this->roleRepository->findAll());
             $roles = array_filter($this->roleRepository->findAll(), function ($role) use ($user) {
                 return 'SUPER_ADMIN' !== $role->getCode();
             });
