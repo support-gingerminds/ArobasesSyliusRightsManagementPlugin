@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bundle\SecurityBundle\Security;
 
 final class RoleChoiceType extends AbstractType
 {
@@ -19,7 +20,10 @@ final class RoleChoiceType extends AbstractType
     /**
      * RoleChoiceType constructor.
      */
-    public function __construct(RoleRepository $roleRepository)
+    public function __construct(
+        RoleRepository $roleRepository,
+        private Security $security
+    )
     {
         $this->roleRepository = $roleRepository;
     }
@@ -33,10 +37,18 @@ final class RoleChoiceType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+        $user = $this->security->getUser();
+
+        if ('SUPER_ADMIN' !== $user->getRole()) {
+            $roles = array_filter($this->roleRepository->findAll(), function ($role) use ($user) {
+                return 'SUPER_ADMIN' !== $role->getCode();
+            });
+        } else {
+            $roles = $this->roleRepository->findAll();
+        }
+
         $resolver->setDefaults([
-            'choices' => function (Options $options): array {
-                return $this->roleRepository->findAll();
-            },
+            'choices' => $roles,
             'choice_value' => 'code',
             'choice_label' => 'name',
             'choice_translation_domain' => true,
