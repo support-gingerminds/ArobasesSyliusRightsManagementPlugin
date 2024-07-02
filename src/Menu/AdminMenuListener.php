@@ -23,9 +23,11 @@ final class AdminMenuListener
     public function addAdminMenuItems(MenuBuilderEvent $event): void
     {
         $menu = $event->getMenu();
-        $menu->getChild('configuration')->addChild('roles', [
-            'route' => 'arobases_sylius_rights_management_plugin_admin_role_index',
-        ])->setLabel('arobases_sylius_rights_management_plugin.menu.admin.roles')->setLabelAttribute('icon', 'users');
+        if (null !== $content = $menu->getChild('configuration')) {
+            $content->addChild('roles', [
+                'route' => 'arobases_sylius_rights_management_plugin_admin_role_index',
+            ])->setLabel('arobases_sylius_rights_management_plugin.menu.admin.roles')->setLabelAttribute('icon', 'users');
+        }
 
         foreach ($menu->getChildren() as $rootChildren) {
             foreach ($rootChildren->getChildren() as $children) {
