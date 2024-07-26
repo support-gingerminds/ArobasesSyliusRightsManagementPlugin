@@ -4,21 +4,27 @@ declare(strict_types=1);
 
 namespace Arobases\SyliusRightsManagementPlugin\Provider;
 
-use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class CurrentAdminUserProvider
 {
+    private TokenStorageInterface $tokenStorage;
 
-    public function __construct(private Security $security)
+    public function __construct(TokenStorageInterface $tokenStorage)
     {
+        $this->tokenStorage = $tokenStorage;
     }
 
-    public function getCurrentAdminUser()
+    public function getCurrentAdminUser(): ?UserInterface
     {
-        if (null === $this->security->getUser()) {
+        if (null === $this->tokenStorage->getToken()) {
+            return null;
+        }
+        if (null === $this->tokenStorage->getToken()->getUser()) {
             return null;
         }
 
-        return $this->security->getUser();
+        return $this->tokenStorage->getToken()->getUser();
     }
 }
