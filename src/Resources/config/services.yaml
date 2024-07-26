@@ -79,7 +79,7 @@ services:
   arobases_sylius_rights_management_plugin.provider.current_admin_user_provider:
     class: Arobases\SyliusRightsManagementPlugin\Provider\CurrentAdminUserProvider
     arguments:
-      - '@Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface'
+      - '@security'
 
   arobases_sylius_rights_management_plugin.listener.access_check_listener:
     class: Arobases\SyliusRightsManagementPlugin\Access\Listener\AccessCheckListener
