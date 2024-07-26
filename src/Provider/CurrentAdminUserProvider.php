@@ -13,7 +13,7 @@ class CurrentAdminUserProvider
     {
     }
 
-    public function getCurrentAdminUser(): ?UserInterface
+    public function getCurrentAdminUser()
     {
         if (null === $this->security->getUser()) {
             return null;
