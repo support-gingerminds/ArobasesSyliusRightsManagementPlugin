@@ -20,10 +20,10 @@ class AdminUserAccessChecker
         $this->arrayListAllRoutes = $this->router->getRouteCollection()->all();
     }
 
-    public function isUserGranted(UserInterface $adminUser, string $routeName): bool
+    public function isUserGranted(UserInterface|null $adminUser, string $routeName): bool
     {
         $authorizedRoutes = [];
-        if (null === $adminUser->getRole()) {
+        if (null === $adminUser || null === $adminUser->getRole()) {
             return false;
         }
 
@@ -42,10 +42,10 @@ class AdminUserAccessChecker
         return false;
     }
 
-    public function isUserMenuGranted(UserInterface $adminUser, array|null $routes): bool
+    public function isUserMenuGranted(UserInterface|null $adminUser, array|null $routes): bool
     {
         $authorizedRoutes = [];
-        if (null === $adminUser->getRole()) {
+        if (null === $adminUser || null === $adminUser->getRole()) {
             return false;
         }
 
