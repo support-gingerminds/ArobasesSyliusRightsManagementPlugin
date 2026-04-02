@@ -58,6 +58,10 @@ class AccessCheckListener
             return;
         }
 
+        if (str_starts_with($event->getRequest()->getPathInfo(), '/api/')) {
+            return;
+        }
+
         if (!$this->adminRouteAccessChecker->isAdminRoute($routeName)) {
             return;
         }
